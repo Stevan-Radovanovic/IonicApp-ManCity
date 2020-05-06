@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Players</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let player of players">
+      <ion-avatar slot="start">
+        <ion-img [src]="player.imageUrl"> </ion-img>
+      </ion-avatar>
+      <ion-label>
+        {{player.name}}|{{player.jerseyNumber}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
