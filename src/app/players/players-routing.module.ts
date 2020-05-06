@@ -9,7 +9,7 @@ const routes: Routes = [
     component: PlayersPage,
   },
   {
-    path: ':ok',
+    path: ':id',
     loadChildren: () =>
       import('./player-detail/player-detail.module').then(
         (m) => m.PlayerDetailPageModule

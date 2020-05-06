@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PlayersService } from '../players.service';
+import { Player } from '../player.model';
 
 @Component({
   selector: 'app-player-detail',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player-detail.page.scss'],
 })
 export class PlayerDetailPage implements OnInit {
+  player: Player = null;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private serv: PlayersService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    console.log(this.player);
+    this.route.paramMap.subscribe((paramMap) => {
+      console.log(paramMap);
+      this.player = this.serv.getPlayer(+paramMap.get('id'));
+      console.log(this.player);
+    });
   }
-
 }
