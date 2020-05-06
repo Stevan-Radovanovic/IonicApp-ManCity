@@ -1,13 +1,21 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/players"></ion-back-button>
+    </ion-buttons>
     <ion-title>{{player?.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onFavorite()">
+        <ion-icon name="star" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col>
+      <ion-col size-md="6" offset-md="3">
         <ion-img [src]="player?.imageUrl"> </ion-img>
       </ion-col>
     </ion-row>

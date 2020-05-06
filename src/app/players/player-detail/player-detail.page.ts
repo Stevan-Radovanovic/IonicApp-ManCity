@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlayersService } from '../players.service';
 import { Player } from '../player.model';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-player-detail',
@@ -11,7 +12,11 @@ import { Player } from '../player.model';
 export class PlayerDetailPage implements OnInit {
   player: Player = null;
 
-  constructor(private route: ActivatedRoute, private serv: PlayersService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private serv: PlayersService,
+    private alertCtrl: AlertController
+  ) {}
 
   ngOnInit(): void {
     console.log(this.player);
@@ -20,5 +25,18 @@ export class PlayerDetailPage implements OnInit {
       this.player = this.serv.getPlayer(+paramMap.get('id'));
       console.log(this.player);
     });
+  }
+
+  onFavorite() {
+    console.log('tu smo');
+    this.alertCtrl
+      .create({
+        header: 'Favorite Player',
+        message: 'Do you want to set this as your favorite player?',
+        buttons: [{ text: `Yes, I'm sure` }, { text: 'Nope!', role: 'Cancel' }],
+      })
+      .then((alertCtrl) => {
+        alertCtrl.present();
+      });
   }
 }
