@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PlayersService } from '../players.service';
-import { Player } from '../player.model';
+import { PlayersService } from '../../shared/services/players.service';
+import { Player } from '../../shared/models/player.model';
 import { AlertController } from '@ionic/angular';
 
 @Component({

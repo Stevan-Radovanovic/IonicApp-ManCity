@@ -8,8 +8,9 @@ import { PlayerDetailPageRoutingModule } from './player-detail-routing.module';
 
 import { PlayerDetailPage } from './player-detail.page';
 import { ActivatedRoute } from '@angular/router';
-import { Player } from '../player.model';
-import { PlayersService } from '../players.service';
+import { Player } from '../../shared/models/player.model';
+import { PlayersService } from '../../shared/services/players.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { PlayersService } from '../players.service';
     FormsModule,
     IonicModule,
     PlayerDetailPageRoutingModule,
+    SharedModule,
   ],
   declarations: [PlayerDetailPage],
 })

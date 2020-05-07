@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/players"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{player?.name}}</ion-title>
+    <ion-title>Player Profile</ion-title>
     <ion-buttons slot="end">
       <ion-button
         (click)="onFavorite()"
@@ -24,7 +24,7 @@
     </ion-row>
     <ion-row class="ion-padding">
       <ion-col class="ion-text-center">
-        <ion-label>{{player?.name}}</ion-label>
+        <ion-label style="font-size: x-large;">{{player?.name}}</ion-label>
       </ion-col>
     </ion-row>
   </ion-grid>

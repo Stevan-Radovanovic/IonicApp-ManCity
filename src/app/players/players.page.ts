@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Player } from './player.model';
-import { PlayersService } from './players.service';
+import { Player } from '../shared/models/player.model';
+import { PlayersService } from '../shared/services/players.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,9 @@ export class PlayersPage implements OnInit {
     private serv: PlayersService,
     private alertCtrl: AlertController,
     private router: Router
-  ) {
+  ) {}
+
+  ionViewWillEnter() {
     this.players = this.serv.getPlayers();
   }
 
