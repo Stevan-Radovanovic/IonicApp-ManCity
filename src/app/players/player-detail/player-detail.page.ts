@@ -28,12 +28,26 @@ export class PlayerDetailPage implements OnInit {
   }
 
   onFavorite() {
-    console.log('tu smo');
+    if (
+      this.serv.favouritePlayer &&
+      this.serv.favouritePlayer.id === this.player.id
+    ) {
+    }
+
     this.alertCtrl
       .create({
         header: 'Favorite Player',
         message: 'Do you want to set this as your favorite player?',
-        buttons: [{ text: `Yes, I'm sure` }, { text: 'Nope!', role: 'Cancel' }],
+        buttons: [
+          {
+            text: `Yes, I'm sure`,
+            handler: () => {
+              this.serv.favouritePlayer = this.player;
+              this.serv.hasFavorite = true;
+            },
+          },
+          { text: 'Nope!', role: 'Cancel' },
+        ],
       })
       .then((alertCtrl) => {
         alertCtrl.present();
