@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class PlayersPage implements OnInit {
   players: Player[] = [];
+  fullListPlayers: Player[] = [];
+  searchBarInput: string;
 
   constructor(
     private serv: PlayersService,
@@ -20,6 +22,29 @@ export class PlayersPage implements OnInit {
 
   ionViewWillEnter() {
     this.players = this.serv.getPlayers();
+    this.fullListPlayers = this.serv.getPlayers();
+  }
+
+  onCancel() {
+    this.players = this.fullListPlayers;
+  }
+
+  onClear() {
+    this.players = this.fullListPlayers;
+  }
+
+  onChangeSearchValue() {
+    if (this.searchBarInput === '') {
+      this.players = this.fullListPlayers;
+      return;
+    }
+
+    console.log(this.searchBarInput);
+    this.players = this.players.filter((player) =>
+      player.name
+        .toLocaleLowerCase()
+        .includes(this.searchBarInput.toLocaleLowerCase())
+    );
   }
 
   onClickFavorite() {

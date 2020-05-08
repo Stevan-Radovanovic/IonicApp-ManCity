@@ -10,10 +10,20 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-searchbar
+    animated
+    showCancelButton="focus"
+    color="primary"
+    (ionClear)="onClear()"
+    (ionCancel)="onCancel()"
+    (ionChange)=" onChangeSearchValue()"
+    padding
+    [(ngModel)]="searchBarInput"
+  ></ion-searchbar>
   <ion-list>
     <ion-item
       *ngFor="let player of players"
-      [routerLink]="['/players',player.id]"
+      [routerLink]="['/home/players',player.id]"
     >
       <ion-avatar slot="start">
         <ion-img [src]="player.imageUrl"> </ion-img>
