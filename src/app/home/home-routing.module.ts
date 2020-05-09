@@ -24,7 +24,7 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'about',
+        path: '',
         redirectTo: 'players',
         pathMatch: 'full',
       },
