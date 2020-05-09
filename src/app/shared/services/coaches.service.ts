@@ -7,6 +7,9 @@ import { Coach } from '../models/coach.model';
 export class CoachesService {
   constructor() {}
 
+  favoriteCoach: Coach;
+  hasFavorite = false;
+
   coaches: Coach[] = [
     {
       id: 1,

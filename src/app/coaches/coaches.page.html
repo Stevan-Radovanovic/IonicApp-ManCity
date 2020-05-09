@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Coaches</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClickFavorite()">
+        <ion-icon name="star" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar
+    animated
+    showCancelButton="focus"
+    color="primary"
+    (ionClear)="onClear()"
+    (ionCancel)="onCancel()"
+    (ionChange)=" onChangeSearchValue()"
+    padding
+    [(ngModel)]="searchBarInput"
+  ></ion-searchbar>
+  <ion-list>
+    <ion-item
+      *ngFor="let coach of coaches"
+      [routerLink]="['/home/coaches',coach.id]"
+    >
+      <ion-avatar slot="start">
+        <ion-img [src]="coach.imageUrl"> </ion-img>
+      </ion-avatar>
+      <ion-label>
+        {{coach.name}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

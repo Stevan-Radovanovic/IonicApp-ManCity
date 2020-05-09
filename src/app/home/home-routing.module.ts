@@ -14,9 +14,9 @@ const routes: Routes = [
           import('../players/players.module').then((m) => m.PlayersPageModule),
       },
       {
-        path: 'coaching',
-        redirectTo: 'players',
-        pathMatch: 'full',
+        path: 'coaches',
+        loadChildren: () =>
+          import('../coaches/coaches.module').then((m) => m.CoachesPageModule),
       },
       {
         path: 'location',
