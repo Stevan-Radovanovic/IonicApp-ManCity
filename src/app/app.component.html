@@ -14,19 +14,7 @@
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item
-            ><ion-icon name="albums-outline"></ion-icon
-            ><ion-label>Register</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle
-          ><ion-item
-            ><ion-icon name="log-in-outline"></ion-icon>
-            <ion-label>Log In</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item>
+          <ion-item (click)="onLogout()">
             <ion-icon name="log-out-outline"></ion-icon
             ><ion-label>Log Out</ion-label>
           </ion-item>
