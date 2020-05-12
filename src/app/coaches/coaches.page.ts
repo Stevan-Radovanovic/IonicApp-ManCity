@@ -64,7 +64,7 @@ export class CoachesPage implements OnInit {
           alertCtrl.present();
         });
     } else {
-      this.router.navigateByUrl('/coaches/' + favorite.id);
+      this.router.navigateByUrl('home/coaches/' + favorite.id);
     }
   }
 

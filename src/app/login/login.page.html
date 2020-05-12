@@ -5,12 +5,56 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button
-    fill="solid"
-    color="primary"
-    (click)="onLogin()"
-    class="ion-justify-content-center"
-  >
-    <ion-icon slot="start" name="log-in-outline"></ion-icon>Log in
-  </ion-button>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">User Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    <ion-item lines="none" class="ion-text-center">
+      <ion-label>
+        <ion-button
+          fill="solid"
+          size="medium"
+          color="primary"
+          (click)="onLogin()"
+        >
+          <ion-icon slot="start" name="log-in-outline"></ion-icon>Log in
+        </ion-button>
+      </ion-label>
+    </ion-item>
+    <ion-item class="ion-text-center">
+      <ion-label>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Don't have an account?</ion-card-subtitle>
+            <ion-card-title>Register now!</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-button
+              fill="solid"
+              size="medium"
+              color="primary"
+              (click)="onLogin()"
+            >
+              <ion-icon slot="start" name="bonfire-outline"></ion-icon>Register
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-item class="ion-text-center" color="primary">
+      <ion-icon slot="start" name="football-outline"></ion-icon>
+      <ion-icon slot="end" name="football-outline"></ion-icon>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>
