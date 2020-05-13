@@ -20,8 +20,10 @@ const routes: Routes = [
       },
       {
         path: 'location',
-        redirectTo: 'players',
-        pathMatch: 'full',
+        loadChildren: () =>
+          import('../location/location.module').then(
+            (m) => m.LocationPageModule
+          ),
       },
       {
         path: '',
