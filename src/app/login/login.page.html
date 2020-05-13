@@ -6,26 +6,45 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item>
-      <ion-label position="floating">User Name</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-    <ion-item lines="none" class="ion-text-center">
-      <ion-label>
-        <ion-button
-          fill="solid"
-          size="medium"
-          color="primary"
-          (click)="onLogin()"
-        >
-          <ion-icon slot="start" name="log-in-outline"></ion-icon>Log in
-        </ion-button>
-      </ion-label>
-    </ion-item>
+    <form [formGroup]="form">
+      <ion-item>
+        <ion-label position="floating">User Name</ion-label>
+        <ion-input formControlName="user" type="text"></ion-input>
+      </ion-item>
+      <ion-item
+        lines="none"
+        *ngIf="this.form.controls.user.invalid && this.form.controls.user.touched"
+      >
+        <ion-label style="color: var(--ion-color-danger); font-size: x-small;">
+          User name must have a minimum of 8 characters
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input formControlName="pass" type="password"></ion-input>
+      </ion-item>
+      <ion-item
+        lines="none"
+        *ngIf="this.form.controls.pass.invalid && this.form.controls.pass.touched"
+      >
+        <ion-label style="color: var(--ion-color-danger); font-size: x-small;">
+          Password must have a minimum of 8 characters!
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" class="ion-text-center">
+        <ion-label>
+          <ion-button
+            fill="solid"
+            size="medium"
+            color="primary"
+            (click)="onLogin()"
+            [disabled]="this.form.invalid"
+          >
+            <ion-icon slot="start" name="log-in-outline"></ion-icon>Log in
+          </ion-button>
+        </ion-label>
+      </ion-item>
+    </form>
     <ion-item class="ion-text-center">
       <ion-label>
         <ion-card>
