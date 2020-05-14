@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Coach } from '../shared/models/coach.model';
 import { CoachesService } from '../shared/services/coaches.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,10 +17,14 @@ export class CoachesPage implements OnInit {
   constructor(
     private serv: CoachesService,
     private alertCtrl: AlertController,
-    private router: Router
+    private router: Router,
+    private loadingCtrl: LoadingController
   ) {}
 
   ionViewWillEnter() {
+    this.loadingCtrl
+      .create({ message: 'Please wait', duration: 2000 })
+      .then((loader) => loader.present());
     this.coaches = this.serv.getCoaches();
     this.fullListCoaches = this.serv.getCoaches();
   }
