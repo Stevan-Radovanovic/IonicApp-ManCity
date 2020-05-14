@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../models/player.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -57,10 +58,12 @@ export class PlayersService {
   ];
 
   getPlayers() {
+    console.log('%c ALERT: Players Fetched', environment.consoleLog);
     return this.players;
   }
 
   getPlayer(id: number) {
+    console.log('%c ALERT: Player Fetched', environment.consoleLog);
     return this.players.find((player) => {
       return player.id === id;
     });

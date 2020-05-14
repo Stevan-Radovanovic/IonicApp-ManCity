@@ -23,10 +23,10 @@ export class PlayersPage implements OnInit {
 
   ionViewWillEnter() {
     this.loadingCtrl
-      .create({ message: 'Please Wait', duration: 2000 })
+      .create({ message: 'Please Wait', duration: 1000 })
       .then((loader) => loader.present());
     this.players = this.serv.getPlayers();
-    this.fullListPlayers = this.serv.getPlayers();
+    this.fullListPlayers = this.players;
   }
 
   onCancel() {

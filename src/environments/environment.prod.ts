@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  consoleLog: 'color:pink; background-color: black;',
 };
