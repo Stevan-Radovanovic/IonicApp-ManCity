@@ -18,4 +18,9 @@ export class AuthService {
     this.isLogedIn = false;
     this.router.navigateByUrl('/login');
   }
+
+  register() {
+    console.log('%c Registered', 'color:pink, background-color: black');
+    this.router.navigateByUrl('/login');
+  }
 }

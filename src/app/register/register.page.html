@@ -1,7 +1,73 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
     <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content class="ion-padding">
+  <ion-list>
+    <form [formGroup]="form">
+      <ion-item>
+        <ion-label position="floating">E-Mail</ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-item
+        lines="none"
+        *ngIf="this.form.controls.email.invalid && this.form.controls.email.touched"
+      >
+        <ion-label style="color: var(--ion-color-danger); font-size: x-small;">
+          Invalied e-mail form
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">User Name</ion-label>
+        <ion-input formControlName="user" type="text"></ion-input>
+      </ion-item>
+      <ion-item
+        lines="none"
+        *ngIf="this.form.controls.user.invalid && this.form.controls.user.touched"
+      >
+        <ion-label style="color: var(--ion-color-danger); font-size: x-small;">
+          User name must have a minimum of 8 characters
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input formControlName="pass" type="password"></ion-input>
+      </ion-item>
+      <ion-item
+        lines="none"
+        *ngIf="this.form.controls.pass.invalid && this.form.controls.pass.touched"
+      >
+        <ion-label style="color: var(--ion-color-danger); font-size: x-small;">
+          Password must have a minimum of 8 characters!
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" class="ion-text-center">
+        <ion-label>
+          <ion-button
+            fill="solid"
+            size="medium"
+            color="primary"
+            (click)="onRegister()"
+            [disabled]="this.form.invalid"
+          >
+            <ion-icon slot="start" name="log-in-outline"></ion-icon>Register
+          </ion-button>
+        </ion-label>
+      </ion-item>
+    </form>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-item class="ion-text-center" color="primary">
+      <ion-icon slot="start" name="football-outline"></ion-icon>
+      <ion-icon slot="end" name="football-outline"></ion-icon>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>
