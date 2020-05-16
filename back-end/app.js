@@ -4,6 +4,18 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+mongoose
+  .connect(
+    'mongodb+srv://stevan:Stevan.1@mancity-xqynu.mongodb.net/test?retryWrites=true&w=majority',
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log('Connected to the database!');
+  })
+  .catch(() => {
+    console.log('Connection to the database failed');
+  });
+
 app.use(bodyParser.json());
 
 app.get('/', function (req, res, next) {
