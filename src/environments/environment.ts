@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   consoleLog: 'color:pink; background-color: black;',
+  consoleLogError: 'color:black; background-color: pink;',
 };
 
 /*

@@ -78,7 +78,7 @@ export class PlayersService {
           console.log('%c ALERT: Player Saved', environment.consoleLog);
         },
         (error) => {
-          console.log('%c ERROR: ' + error, environment.consoleLog);
+          console.log('%c ERROR: ' + error, environment.consoleLogError);
         }
       );
   }
