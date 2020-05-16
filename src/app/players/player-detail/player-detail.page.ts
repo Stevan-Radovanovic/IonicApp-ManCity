@@ -22,7 +22,7 @@ export class PlayerDetailPage implements OnInit {
     console.log(this.player);
     this.route.paramMap.subscribe((paramMap) => {
       console.log(paramMap);
-      this.player = this.serv.getPlayer(+paramMap.get('id'));
+      this.player = this.serv.getPlayer(paramMap.get('id'));
       console.log(this.player);
     });
   }
@@ -30,7 +30,7 @@ export class PlayerDetailPage implements OnInit {
   onFavorite() {
     if (
       this.serv.favouritePlayer &&
-      this.serv.favouritePlayer.id === this.player.id
+      this.serv.favouritePlayer._id === this.player._id
     ) {
     }
 

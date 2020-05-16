@@ -24,7 +24,7 @@
   <ion-list>
     <ion-item
       *ngFor="let player of players"
-      [routerLink]="['/home/players',player.id]"
+      [routerLink]="['/home/players',player._id]"
     >
       <ion-avatar slot="start">
         <ion-img [src]="player.imageUrl"> </ion-img>

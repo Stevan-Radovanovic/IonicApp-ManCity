@@ -27,10 +27,11 @@ export class PlayersPage implements OnInit {
     loader.present();
     this.serv.getPlayers().subscribe((response) => {
       this.players = response.documents;
+      this.serv.players = this.players;
+      this.fullListPlayers = this.players;
       loader.dismiss();
       console.log('%c ALERT: Players Fetched', environment.consoleLog);
     });
-    this.fullListPlayers = this.players;
   }
 
   onCancel() {

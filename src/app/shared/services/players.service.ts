@@ -20,10 +20,10 @@ export class PlayersService {
     );
   }
 
-  getPlayer(id: number) {
+  getPlayer(id: string) {
     console.log('%c ALERT: Player Fetched', environment.consoleLog);
     return this.players.find((player) => {
-      return player.id === id;
+      return player._id === id;
     });
   }
 
