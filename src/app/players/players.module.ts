@@ -8,6 +8,7 @@ import { PlayersPageRoutingModule } from './players-routing.module';
 
 import { PlayersPage } from './players.page';
 import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { SharedModule } from '../shared/shared.module';
     IonicModule,
     PlayersPageRoutingModule,
     SharedModule,
+    HttpClientModule,
   ],
   declarations: [PlayersPage],
 })

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../models/player.model';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlayersService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   favouritePlayer: Player;
   hasFavorite = false;
@@ -67,5 +68,18 @@ export class PlayersService {
     return this.players.find((player) => {
       return player.id === id;
     });
+  }
+
+  postPlayer(player: Player) {
+    this.http
+      .post<{ signal: boolean }>('http://localhost:3000/players', player)
+      .subscribe(
+        (response) => {
+          console.log('%c ALERT: Player Saved', environment.consoleLog);
+        },
+        (error) => {
+          console.log('%c ERROR: ' + error, environment.consoleLog);
+        }
+      );
   }
 }
