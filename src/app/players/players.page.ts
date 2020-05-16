@@ -3,6 +3,7 @@ import { Player } from '../shared/models/player.model';
 import { PlayersService } from '../shared/services/players.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-players',
@@ -21,11 +22,14 @@ export class PlayersPage implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
-  ionViewWillEnter() {
-    this.loadingCtrl
-      .create({ message: 'Please Wait', duration: 1000 })
-      .then((loader) => loader.present());
-    this.players = this.serv.getPlayers();
+  async ionViewWillEnter() {
+    const loader = await this.loadingCtrl.create({ message: 'Please Wait' });
+    loader.present();
+    this.serv.getPlayers().subscribe((response) => {
+      this.players = response.documents;
+      loader.dismiss();
+      console.log('%c ALERT: Players Fetched', environment.consoleLog);
+    });
     this.fullListPlayers = this.players;
   }
 
