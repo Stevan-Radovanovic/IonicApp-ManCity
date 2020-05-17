@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 export class CoachesService {
   constructor(private http: HttpClient) {}
 
-  favoriteCoach: Coach;
   hasFavorite = false;
 
   coaches: Coach[] = [];

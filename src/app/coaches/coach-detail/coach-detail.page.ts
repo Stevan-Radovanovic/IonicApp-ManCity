@@ -24,31 +24,4 @@ export class CoachDetailPage implements OnInit {
       this.coach = this.serv.getCoach(paramMap.get('id'));
     });
   }
-
-  onFavorite() {
-    if (
-      this.serv.favoriteCoach &&
-      this.serv.favoriteCoach._id === this.coach._id
-    ) {
-    }
-
-    this.alertCtrl
-      .create({
-        header: 'Favorite Coach',
-        message: 'Do you want to set this as your favorite coach?',
-        buttons: [
-          {
-            text: `Yes, I'm sure`,
-            handler: () => {
-              this.serv.favoriteCoach = this.coach;
-              this.serv.hasFavorite = true;
-            },
-          },
-          { text: 'Nope!', role: 'Cancel' },
-        ],
-      })
-      .then((alertCtrl) => {
-        alertCtrl.present();
-      });
-  }
 }

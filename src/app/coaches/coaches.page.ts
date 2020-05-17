@@ -51,32 +51,11 @@ export class CoachesPage implements OnInit {
     }
 
     console.log(this.searchBarInput);
-    this.coaches = this.coaches.filter((coach) =>
+    this.coaches = this.fullListCoaches.filter((coach) =>
       coach.name
         .toLocaleLowerCase()
         .includes(this.searchBarInput.toLocaleLowerCase())
     );
-  }
-
-  onClickFavorite() {
-    const favorite = this.serv.favoriteCoach;
-    if (!favorite) {
-      this.alertCtrl
-        .create({
-          header: 'Oops!',
-          message: `You still haven't chosen your favorite coach!`,
-          buttons: [
-            {
-              text: `Ok`,
-            },
-          ],
-        })
-        .then((alertCtrl) => {
-          alertCtrl.present();
-        });
-    } else {
-      this.router.navigateByUrl('home/coaches/' + favorite._id);
-    }
   }
 
   ngOnInit() {}
