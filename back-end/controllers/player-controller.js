@@ -23,3 +23,12 @@ exports.PostPlayer = async (req, res, next) => {
     res.status(500).json({ error: error });
   }
 };
+
+exports.DeletePlayer = async (req, res, next) => {
+  try {
+    const response = await Player.findByIdAndDelete(req.query.id);
+    res.status(201).json({ signal: true });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};

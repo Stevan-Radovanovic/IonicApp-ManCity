@@ -56,5 +56,16 @@ export class PlayersPage implements OnInit {
     );
   }
 
+  onClickDelete(player: Player) {
+    this.serv.deletePlayer(player._id).subscribe(
+      (response) => {
+        console.log('%c ALERT: Player Deleted', environment.consoleLog);
+      },
+      (error) => {
+        console.log('%c ERROR: ' + error, environment.consoleLogError);
+      }
+    );
+  }
+
   ngOnInit() {}
 }

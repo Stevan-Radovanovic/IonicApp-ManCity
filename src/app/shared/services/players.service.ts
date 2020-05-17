@@ -38,4 +38,15 @@ export class PlayersService {
         }
       );
   }
+
+  deletePlayer(pid: string) {
+    return this.http.delete<{ signal: boolean }>(
+      'http://localhost:3000/players/deleteOne',
+      {
+        params: {
+          id: pid,
+        },
+      }
+    );
+  }
 }
