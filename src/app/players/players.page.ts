@@ -49,32 +49,11 @@ export class PlayersPage implements OnInit {
     }
 
     console.log(this.searchBarInput);
-    this.players = this.players.filter((player) =>
+    this.players = this.fullListPlayers.filter((player) =>
       player.name
         .toLocaleLowerCase()
         .includes(this.searchBarInput.toLocaleLowerCase())
     );
-  }
-
-  onClickFavorite() {
-    const favorite = this.serv.favouritePlayer;
-    if (!favorite) {
-      this.alertCtrl
-        .create({
-          header: 'Oops!',
-          message: `You still haven't chosen your favorite player!`,
-          buttons: [
-            {
-              text: `Ok`,
-            },
-          ],
-        })
-        .then((alertCtrl) => {
-          alertCtrl.present();
-        });
-    } else {
-      this.router.navigateByUrl('home/players/' + favorite._id);
-    }
   }
 
   ngOnInit() {}

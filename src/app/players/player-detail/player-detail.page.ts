@@ -26,31 +26,4 @@ export class PlayerDetailPage implements OnInit {
       console.log(this.player);
     });
   }
-
-  onFavorite() {
-    if (
-      this.serv.favouritePlayer &&
-      this.serv.favouritePlayer._id === this.player._id
-    ) {
-    }
-
-    this.alertCtrl
-      .create({
-        header: 'Favorite Player',
-        message: 'Do you want to set this as your favorite player?',
-        buttons: [
-          {
-            text: `Yes, I'm sure`,
-            handler: () => {
-              this.serv.favouritePlayer = this.player;
-              this.serv.hasFavorite = true;
-            },
-          },
-          { text: 'Nope!', role: 'Cancel' },
-        ],
-      })
-      .then((alertCtrl) => {
-        alertCtrl.present();
-      });
-  }
 }
