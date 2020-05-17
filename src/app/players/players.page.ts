@@ -73,7 +73,7 @@ export class PlayersPage implements OnInit {
           alertCtrl.present();
         });
     } else {
-      this.router.navigateByUrl('home/players/' + favorite.id);
+      this.router.navigateByUrl('home/players/' + favorite._id);
     }
   }
 

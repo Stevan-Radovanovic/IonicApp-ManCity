@@ -10,8 +10,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./coach-detail.page.scss'],
 })
 export class CoachDetailPage implements OnInit {
-
-  coach :Coach  = null;
+  coach: Coach = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,14 +21,14 @@ export class CoachDetailPage implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
       console.log(paramMap);
-      this.coach = this.serv.getCoach(+paramMap.get('id'));
+      this.coach = this.serv.getCoach(paramMap.get('id'));
     });
   }
 
   onFavorite() {
     if (
       this.serv.favoriteCoach &&
-      this.serv.favoriteCoach.id === this.coach.id
+      this.serv.favoriteCoach._id === this.coach._id
     ) {
     }
 
@@ -52,5 +51,4 @@ export class CoachDetailPage implements OnInit {
         alertCtrl.present();
       });
   }
-
 }

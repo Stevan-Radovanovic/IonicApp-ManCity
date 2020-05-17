@@ -1,5 +1,5 @@
 export interface Coach {
-  id: number;
+  _id: string;
   name: string;
   imageUrl: string;
 }

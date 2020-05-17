@@ -3,6 +3,7 @@ import { Coach } from '../shared/models/coach.model';
 import { CoachesService } from '../shared/services/coaches.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-coaches',
@@ -21,12 +22,18 @@ export class CoachesPage implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
-  ionViewWillEnter() {
-    this.loadingCtrl
-      .create({ message: 'Please wait', duration: 1000 })
-      .then((loader) => loader.present());
-    this.coaches = this.serv.getCoaches();
-    this.fullListCoaches = this.coaches;
+  async ionViewWillEnter() {
+    const loader = await this.loadingCtrl.create({
+      message: 'Please wait',
+    });
+    loader.present();
+    this.serv.getCoaches().subscribe((response) => {
+      this.coaches = response.documents;
+      this.serv.coaches = this.coaches;
+      this.fullListCoaches = this.coaches;
+      console.log('%c ALERT: Coaches Fetched', environment.consoleLog);
+      loader.dismiss();
+    });
   }
 
   onCancel() {
@@ -68,7 +75,7 @@ export class CoachesPage implements OnInit {
           alertCtrl.present();
         });
     } else {
-      this.router.navigateByUrl('home/coaches/' + favorite.id);
+      this.router.navigateByUrl('home/coaches/' + favorite._id);
     }
   }
 
