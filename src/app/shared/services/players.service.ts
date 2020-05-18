@@ -28,9 +28,13 @@ export class PlayersService {
 
   getPlayer(id: string) {
     console.log('%c ALERT: Player Fetched', environment.consoleLog);
-    return this.players.find((player) => {
-      return player._id === id;
+    let selectedPlayer: Player;
+    this.playerSubject.pipe(take(1)).subscribe((players) => {
+      selectedPlayer = players.find((player) => {
+        return player._id === id;
+      });
     });
+    return selectedPlayer;
   }
 
   postPlayer(player: Player) {
