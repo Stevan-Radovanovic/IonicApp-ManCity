@@ -4,6 +4,8 @@ import { PlayersService } from '../shared/services/players.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-players',
@@ -14,6 +16,7 @@ export class PlayersPage implements OnInit {
   players: Player[] = [];
   fullListPlayers: Player[] = [];
   searchBarInput: string;
+  sub: Subscription;
 
   constructor(
     private serv: PlayersService,
@@ -25,13 +28,27 @@ export class PlayersPage implements OnInit {
   async ionViewWillEnter() {
     const loader = await this.loadingCtrl.create({ message: 'Please Wait' });
     loader.present();
-    this.serv.getPlayers().subscribe((response) => {
-      this.players = response.documents;
-      this.serv.players = this.players;
-      this.fullListPlayers = this.players;
-      loader.dismiss();
-      console.log('%c ALERT: Players Fetched', environment.consoleLog);
-    });
+    this.serv
+      .getPlayers()
+      .pipe(
+        tap(() => {
+          this.sub = this.serv.playerSubject.subscribe((response) => {
+            console.log('%c ALERT: Subject Triggered', environment.consoleLog);
+            this.players = response;
+            this.fullListPlayers = this.players;
+          });
+        })
+      )
+      .subscribe(() => {
+        console.log('%c ALERT: Players Fetched', environment.consoleLog);
+        loader.dismiss();
+      });
+  }
+
+  ionViewWillLeave() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   onCancel() {
@@ -57,14 +74,7 @@ export class PlayersPage implements OnInit {
   }
 
   onClickDelete(player: Player) {
-    this.serv.deletePlayer(player._id).subscribe(
-      (response) => {
-        console.log('%c ALERT: Player Deleted', environment.consoleLog);
-      },
-      (error) => {
-        console.log('%c ERROR: ' + error, environment.consoleLogError);
-      }
-    );
+    this.serv.deletePlayer(player._id);
   }
 
   ngOnInit() {}
