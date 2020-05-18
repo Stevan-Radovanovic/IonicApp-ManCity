@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../shared/models/player.model';
 import { PlayersService } from '../shared/services/players.service';
-import { AlertController, LoadingController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { PlayerModalPage } from './player-modal/player-modal.page';
 
 @Component({
   selector: 'app-players',
@@ -20,8 +25,7 @@ export class PlayersPage implements OnInit {
 
   constructor(
     private serv: PlayersService,
-    private alertCtrl: AlertController,
-    private router: Router,
+    private modalController: ModalController,
     private loadingCtrl: LoadingController
   ) {}
 
@@ -49,6 +53,13 @@ export class PlayersPage implements OnInit {
     if (this.sub) {
       this.sub.unsubscribe();
     }
+  }
+
+  async onActivateModal() {
+    const modal = await this.modalController.create({
+      component: PlayerModalPage,
+    });
+    modal.present();
   }
 
   onCancel() {
