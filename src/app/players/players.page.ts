@@ -22,6 +22,8 @@ export class PlayersPage implements OnInit {
   fullListPlayers: Player[] = [];
   searchBarInput: string;
   sub: Subscription;
+  hasPlayers = false;
+  isLoading = true;
 
   constructor(
     private serv: PlayersService,
@@ -31,6 +33,7 @@ export class PlayersPage implements OnInit {
 
   async ionViewWillEnter() {
     const loader = await this.loadingCtrl.create({ message: 'Please Wait...' });
+    this.isLoading = true;
     loader.present();
     this.serv
       .getPlayers()
@@ -38,6 +41,9 @@ export class PlayersPage implements OnInit {
         tap(() => {
           this.sub = this.serv.playerSubject.subscribe((response) => {
             console.log('%c ALERT: Subject Triggered', environment.consoleLog);
+            if (response.length > 0) {
+              this.hasPlayers = true;
+            }
             this.players = response;
             this.fullListPlayers = this.players;
           });
@@ -46,6 +52,7 @@ export class PlayersPage implements OnInit {
       .subscribe(() => {
         console.log('%c ALERT: Players Fetched', environment.consoleLog);
         loader.dismiss();
+        this.isLoading = false;
       });
   }
 

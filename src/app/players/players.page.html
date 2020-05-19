@@ -21,7 +21,16 @@
     padding
     [(ngModel)]="searchBarInput"
   ></ion-searchbar>
-  <ion-list>
+  <ion-item
+    *ngIf="!hasPlayers && !isLoading"
+    class="ion-text-center"
+    lines="none"
+  >
+    <ion-label>
+      <p>No players found</p>
+    </ion-label>
+  </ion-item>
+  <ion-list *ngIf="hasPlayers">
     <ion-item-sliding *ngFor="let player of players">
       <ion-item [routerLink]="['/home/players',player._id]">
         <ion-avatar slot="start">
