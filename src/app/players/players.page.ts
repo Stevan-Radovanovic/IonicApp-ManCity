@@ -30,7 +30,7 @@ export class PlayersPage implements OnInit {
   ) {}
 
   async ionViewWillEnter() {
-    const loader = await this.loadingCtrl.create({ message: 'Please Wait' });
+    const loader = await this.loadingCtrl.create({ message: 'Please Wait...' });
     loader.present();
     this.serv
       .getPlayers()
