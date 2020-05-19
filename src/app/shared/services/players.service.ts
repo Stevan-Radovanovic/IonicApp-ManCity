@@ -38,15 +38,16 @@ export class PlayersService {
   }
 
   postPlayer(player: Player) {
-    this.http
+    return this.http
       .post<{ signal: boolean }>('http://localhost:3000/players', player)
-      .subscribe(
-        (response) => {
-          console.log('%c ALERT: Player Saved', environment.consoleLog);
-        },
-        (error) => {
-          console.log('%c ERROR: ' + error, environment.consoleLogError);
-        }
+      .pipe(
+        tap((result) => {
+          if (result.signal === true) {
+            this.playerSubject.pipe(take(1)).subscribe((players) => {
+              this.playerSubject.next(players.concat(player));
+            });
+          }
+        })
       );
   }
 

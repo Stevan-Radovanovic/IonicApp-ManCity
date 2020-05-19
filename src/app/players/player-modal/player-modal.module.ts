@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PlayerModalPageRoutingModule } from './player-modal-routing.module';
 
 import { PlayerModalPage } from './player-modal.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { PlayerModalPage } from './player-modal.page';
     ReactiveFormsModule,
     IonicModule,
     PlayerModalPageRoutingModule,
+    SharedModule,
   ],
   declarations: [PlayerModalPage],
   exports: [PlayerModalPage],
