@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Coach } from '../shared/models/coach.model';
 import { CoachesService } from '../shared/services/coaches.service';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { CoachModalPage } from './coach-modal/coach-modal.page';
 
 @Component({
   selector: 'app-coaches',
@@ -17,8 +17,7 @@ export class CoachesPage implements OnInit {
 
   constructor(
     private serv: CoachesService,
-    private alertCtrl: AlertController,
-    private router: Router,
+    private modalController: ModalController,
     private loadingCtrl: LoadingController
   ) {}
 
@@ -56,6 +55,13 @@ export class CoachesPage implements OnInit {
         .toLocaleLowerCase()
         .includes(this.searchBarInput.toLocaleLowerCase())
     );
+  }
+
+  async onActivateModal() {
+    const modal = await this.modalController.create({
+      component: CoachModalPage,
+    });
+    modal.present();
   }
 
   ngOnInit() {}
