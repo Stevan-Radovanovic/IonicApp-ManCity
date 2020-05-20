@@ -11,8 +11,6 @@ import { tap, take } from 'rxjs/operators';
 export class PlayersService {
   constructor(private http: HttpClient) {}
 
-  hasFavorite = false;
-
   playerSubject = new BehaviorSubject<Player[]>([]);
   players: Player[] = [];
 
