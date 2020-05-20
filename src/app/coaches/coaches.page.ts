@@ -26,7 +26,7 @@ export class CoachesPage implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
-  async ionViewWillEnter() {
+  async getCoaches() {
     const loader = await this.loadingCtrl.create({ message: 'Please Wait...' });
     this.isLoading = true;
     loader.present();
@@ -49,6 +49,10 @@ export class CoachesPage implements OnInit {
         loader.dismiss();
         this.isLoading = false;
       });
+  }
+
+  async ionViewWillEnter() {
+    this.getCoaches();
   }
 
   ionViewWillLeave() {
@@ -84,11 +88,20 @@ export class CoachesPage implements OnInit {
       component: CoachModalPage,
     });
     modal.present();
+    modal.onDidDismiss().then(() => {
+      this.sub.unsubscribe();
+      this.getCoaches();
+    });
   }
 
   onClickDelete(coach: Coach) {
-    this.serv.deleteCoach(coach._id);
+    this.serv.deleteCoach(coach._id).subscribe(
+      (response) => {
+        console.log('%c ALERT: Coach Deleted', environment.consoleLog);
+      },
+      (error: Error) => {
+        console.log('%c ERROR: ' + error.message, environment.consoleLogError);
+      }
+    );
   }
-
-  ngOnInit() {}
 }
