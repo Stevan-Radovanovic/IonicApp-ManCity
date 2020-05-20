@@ -20,7 +20,6 @@ export class CoachDetailPage implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
-      console.log(paramMap);
       this.coach = this.serv.getCoach(paramMap.get('id'));
     });
   }

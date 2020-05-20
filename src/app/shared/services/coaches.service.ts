@@ -71,8 +71,11 @@ export class CoachesService {
         (response) => {
           console.log('%c ALERT: Coach Deleted', environment.consoleLog);
         },
-        (error) => {
-          console.log('%c ERROR: ' + error, environment.consoleLogError);
+        (error: Error) => {
+          console.log(
+            '%c ERROR: ' + error.message,
+            environment.consoleLogError
+          );
         }
       );
   }
