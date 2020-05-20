@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Coach } from 'src/app/shared/models/coach.model';
 import { ModalController } from '@ionic/angular';
+import { CoachesService } from 'src/app/shared/services/coaches.service';
 
 @Component({
   selector: 'app-coach-modal',
@@ -12,7 +13,10 @@ import { ModalController } from '@ionic/angular';
 export class CoachModalPage implements OnInit {
   form: FormGroup;
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(
+    private modalCtrl: ModalController,
+    private serv: CoachesService
+  ) {}
 
   ngOnInit() {
     this.generateForm();
@@ -43,7 +47,18 @@ export class CoachModalPage implements OnInit {
   onAddCoach() {
     const coach: Coach = {
       name: this.form.controls.name.value,
+
       imageUrl: this.form.controls.imageUrl.value,
     };
+    this.serv.postCoach(coach).subscribe(
+      (response) => {
+        console.log('%c ALERT: Coach Saved', environment.consoleLog);
+        this.modalCtrl.dismiss();
+        console.log('%c ALERT: Modal Dissmised', environment.consoleLog);
+      },
+      (error: Error) => {
+        console.log('%c ERROR: ' + error.message, environment.consoleLogError);
+      }
+    );
   }
 }
