@@ -23,6 +23,9 @@ export class CoachDetailPage implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
       this.coach = this.serv.getCoach(paramMap.get('id'));
+      if (this.coach === undefined || this.coach === null) {
+        this.router.navigateByUrl('/home/coaches');
+      }
     });
   }
 

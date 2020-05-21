@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PlayersService } from '../../shared/services/players.service';
 import { Player } from '../../shared/models/player.model';
 import { AlertController } from '@ionic/angular';
@@ -15,6 +15,7 @@ export class PlayerDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private serv: PlayersService,
+    private router: Router,
     private alertCtrl: AlertController
   ) {}
 
@@ -22,6 +23,9 @@ export class PlayerDetailPage implements OnInit {
     console.log(this.player);
     this.route.paramMap.subscribe((paramMap) => {
       this.player = this.serv.getPlayer(paramMap.get('id'));
+      if (this.player === undefined || this.player === null) {
+        this.router.navigateByUrl('/home/players');
+      }
     });
   }
 }
