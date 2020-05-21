@@ -31,7 +31,7 @@ export class PlayersPage implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
-  async ionViewWillEnter() {
+  async getPlayers() {
     const loader = await this.loadingCtrl.create({ message: 'Please Wait...' });
     this.isLoading = true;
     loader.present();
@@ -56,6 +56,10 @@ export class PlayersPage implements OnInit {
       });
   }
 
+  async ionViewWillEnter() {
+    this.getPlayers();
+  }
+
   ionViewWillLeave() {
     if (this.sub) {
       this.sub.unsubscribe();
@@ -67,6 +71,10 @@ export class PlayersPage implements OnInit {
       component: PlayerModalPage,
     });
     modal.present();
+    modal.onDidDismiss().then(() => {
+      this.sub.unsubscribe();
+      this.getPlayers();
+    });
   }
 
   onCancel() {
@@ -92,7 +100,14 @@ export class PlayersPage implements OnInit {
   }
 
   onClickDelete(player: Player) {
-    this.serv.deletePlayer(player._id);
+    this.serv.deletePlayer(player._id).subscribe(
+      (response) => {
+        console.log('%c ALERT: Player Deleted', environment.consoleLog);
+      },
+      (error) => {
+        console.log('%c ERROR: ' + error, environment.consoleLogError);
+      }
+    );
   }
 
   ngOnInit() {}

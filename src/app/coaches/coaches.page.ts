@@ -26,6 +26,8 @@ export class CoachesPage implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
+  ngOnInit() {}
+
   async getCoaches() {
     const loader = await this.loadingCtrl.create({ message: 'Please Wait...' });
     this.isLoading = true;

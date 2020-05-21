@@ -64,14 +64,6 @@ export class PlayersService {
             });
           }
         })
-      )
-      .subscribe(
-        (response) => {
-          console.log('%c ALERT: Player Deleted', environment.consoleLog);
-        },
-        (error) => {
-          console.log('%c ERROR: ' + error, environment.consoleLogError);
-        }
       );
   }
 }

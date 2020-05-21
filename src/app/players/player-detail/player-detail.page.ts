@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PlayersService } from '../../shared/services/players.service';
 import { Player } from '../../shared/models/player.model';
 import { AlertController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-player-detail',
@@ -27,5 +28,17 @@ export class PlayerDetailPage implements OnInit {
         this.router.navigateByUrl('/home/players');
       }
     });
+  }
+
+  onDeletePlayer() {
+    this.serv.deletePlayer(this.player._id).subscribe(
+      (response) => {
+        console.log('%c ALERT: Player Deleted', environment.consoleLog);
+        this.router.navigateByUrl('/home/players');
+      },
+      (error: Error) => {
+        console.log('%c ERROR: ' + error.message, environment.consoleLogError);
+      }
+    );
   }
 }
