@@ -43,6 +43,9 @@ export class CoachesPage implements OnInit {
             }
             this.coaches = response;
             this.fullListCoaches = this.coaches;
+            if (this.coaches.length === 0) {
+              this.hasCoaches = false;
+            }
           });
         })
       )

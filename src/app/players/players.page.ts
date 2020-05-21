@@ -46,6 +46,9 @@ export class PlayersPage implements OnInit {
             }
             this.players = response;
             this.fullListPlayers = this.players;
+            if (this.players.length === 0) {
+              this.hasPlayers = false;
+            }
           });
         })
       )
