@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -10,7 +10,7 @@ import { AuthService } from './shared/services/auth.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -18,6 +18,9 @@ export class AppComponent {
     private auth: AuthService
   ) {
     this.initializeApp();
+  }
+  ngOnInit(): void {
+    this.auth.autoLogIn();
   }
 
   initializeApp() {

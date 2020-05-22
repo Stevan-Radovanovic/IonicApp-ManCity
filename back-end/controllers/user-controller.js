@@ -7,7 +7,7 @@ exports.Register = async (req, res, next) => {
     const hash = await bcrypt.hash(req.body.password, 10);
     const user = new User({
       email: req.body.email,
-      username: req.body.username,
+      username: req.body.userName,
       password: hash,
     });
     const result = await user.save();
@@ -15,6 +15,7 @@ exports.Register = async (req, res, next) => {
       signal: true,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: 'Sign Up Failed' });
   }
 };
