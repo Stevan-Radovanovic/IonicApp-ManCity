@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -41,6 +42,20 @@ export class RegisterPage implements OnInit {
   }
 
   onRegister() {
-    this.auth.register();
+    this.auth
+      .register(
+        this.form.controls.email.value,
+        this.form.controls.pass.value,
+        this.form.controls.user.value
+      )
+      .subscribe(
+        (response) => {
+          this.router.navigateByUrl('/login');
+          console.log('%c ALERT: Registered', environment.consoleLog);
+        },
+        (err) => {
+          console.log('%c ERROR: ' + err.message, environment.consoleLogError);
+        }
+      );
   }
 }
