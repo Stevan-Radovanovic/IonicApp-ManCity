@@ -9,11 +9,22 @@ exports.GetAllPlayers = async (req, res, next) => {
   }
 };
 
+exports.GetPlayersByEmail = async (req, res, next) => {
+  try {
+    console.log(req.query.email);
+    const documents = await Player.find({ email: req.query.email });
+    res.status(200).json({ documents: documents });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
 exports.PostPlayer = async (req, res, next) => {
   const player = new Player({
     name: req.body.name,
     jerseyNumber: req.body.jerseyNumber,
     imageUrl: req.body.imageUrl,
+    email: req.query.email,
   });
 
   try {

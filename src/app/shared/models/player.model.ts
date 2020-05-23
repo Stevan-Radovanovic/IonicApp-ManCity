@@ -3,4 +3,5 @@ export interface Player {
   name: string;
   jerseyNumber: number;
   imageUrl: string;
+  email?: string;
 }

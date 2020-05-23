@@ -4,6 +4,7 @@ const playerSchema = mongoose.Schema({
   name: { type: String, required: true },
   jerseyNumber: { type: Number, required: true },
   imageUrl: { type: String, required: true },
+  email: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Player', playerSchema);

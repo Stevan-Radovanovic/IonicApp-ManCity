@@ -36,7 +36,7 @@ export class PlayersPage implements OnInit {
     this.isLoading = true;
     loader.present();
     this.serv
-      .getPlayers()
+      .getPlayersByEmail()
       .pipe(
         tap(() => {
           this.sub = this.serv.playerSubject.subscribe((response) => {

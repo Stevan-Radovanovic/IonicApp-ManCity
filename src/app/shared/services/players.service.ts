@@ -4,12 +4,13 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { tap, take } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlayersService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   playerSubject = new BehaviorSubject<Player[]>([]);
   players: Player[] = [];
@@ -19,6 +20,19 @@ export class PlayersService {
       .get<{ documents: Player[] }>('http://localhost:3000/players')
       .pipe(
         tap((players) => {
+          this.playerSubject.next(players.documents);
+        })
+      );
+  }
+
+  getPlayersByEmail() {
+    return this.http
+      .get<{ documents: Player[] }>('http://localhost:3000/players/email', {
+        params: { email: localStorage.getItem('email') },
+      })
+      .pipe(
+        tap((players) => {
+          console.log(players);
           this.playerSubject.next(players.documents);
         })
       );
@@ -37,7 +51,11 @@ export class PlayersService {
 
   postPlayer(player: Player) {
     return this.http
-      .post<{ signal: boolean }>('http://localhost:3000/players', player)
+      .post<{ signal: boolean }>('http://localhost:3000/players', player, {
+        params: {
+          email: localStorage.getItem('email'),
+        },
+      })
       .pipe(
         tap((result) => {
           if (result.signal === true) {
