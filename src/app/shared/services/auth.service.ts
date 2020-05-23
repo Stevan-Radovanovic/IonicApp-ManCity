@@ -38,6 +38,7 @@ export class AuthService {
     this.tokenSubject.next(false);
     this.clearAuthData();
     this.router.navigateByUrl('/login');
+    console.log('%c ALERT: Logged Out', environment.consoleLog);
   }
 
   autoLogOut(interval: number) {
