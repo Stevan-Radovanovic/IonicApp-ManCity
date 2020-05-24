@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { PlayerModalPage } from './player-modal/player-modal.page';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-players',
@@ -21,14 +22,16 @@ export class PlayersPage implements OnInit {
   players: Player[] = [];
   fullListPlayers: Player[] = [];
   searchBarInput: string;
-  sub: Subscription;
+
   hasPlayers = false;
   isLoading = true;
 
   constructor(
     private serv: PlayersService,
+    private auth: AuthService,
     private modalController: ModalController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private router: Router
   ) {}
 
   async getPlayers() {
@@ -39,17 +42,22 @@ export class PlayersPage implements OnInit {
       .getPlayersByEmail()
       .pipe(
         tap(() => {
-          this.sub = this.serv.playerSubject.subscribe((response) => {
-            console.log('%c ALERT: Subject Triggered', environment.consoleLog);
-            if (response.length > 0) {
-              this.hasPlayers = true;
+          this.auth.playerSub = this.serv.playerSubject.subscribe(
+            (response) => {
+              console.log(
+                '%c ALERT: Subject Triggered',
+                environment.consoleLog
+              );
+              if (response.length > 0) {
+                this.hasPlayers = true;
+              }
+              this.players = response;
+              this.fullListPlayers = this.players;
+              if (this.players.length === 0) {
+                this.hasPlayers = false;
+              }
             }
-            this.players = response;
-            this.fullListPlayers = this.players;
-            if (this.players.length === 0) {
-              this.hasPlayers = false;
-            }
-          });
+          );
         })
       )
       .subscribe(() => {
@@ -60,12 +68,14 @@ export class PlayersPage implements OnInit {
   }
 
   async ionViewWillEnter() {
+    console.log('TEST');
     this.getPlayers();
   }
 
   ionViewWillLeave() {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.auth.playerSub) {
+      console.log('%c ALERT: Subscription Ended', environment.consoleLog);
+      this.auth.playerSub.unsubscribe();
     }
   }
 
@@ -75,7 +85,7 @@ export class PlayersPage implements OnInit {
     });
     modal.present();
     modal.onDidDismiss().then(() => {
-      this.sub.unsubscribe();
+      this.auth.playerSub.unsubscribe();
       this.getPlayers();
     });
   }
@@ -100,6 +110,10 @@ export class PlayersPage implements OnInit {
         .toLocaleLowerCase()
         .includes(this.searchBarInput.toLocaleLowerCase())
     );
+  }
+
+  onNavigate(player: Player) {
+    this.router.navigateByUrl('home/players/' + player._id);
   }
 
   onClickDelete(player: Player) {

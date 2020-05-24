@@ -29,6 +29,7 @@ export class LoginPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    console.log('TEST');
     this.generateForm();
   }
 
@@ -48,7 +49,7 @@ export class LoginPage implements OnInit {
           this.auth.isAuth = true;
           this.auth.autoLogOut(36000000);
           console.log('%c ALERT: Logged In', environment.consoleLog);
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/home/players');
         },
         (err) => {
           console.log('%c ERROR: ' + err.message, environment.consoleLogError);

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from '../models/user.model';
+import { PlayersService } from './players.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class AuthService {
   public isAuth = false;
   public tokenSubject = new BehaviorSubject(false);
   public timer: any;
+  playerSub: Subscription;
 
   register(mail: string, pass: string, username: string) {
     const user: User = { email: mail, password: pass, userName: username };
@@ -37,7 +39,11 @@ export class AuthService {
     this.isAuth = false;
     this.tokenSubject.next(false);
     this.clearAuthData();
-    this.router.navigateByUrl('/login');
+    if (this.playerSub) {
+      console.log('%c ALERT: Subscription Ended', environment.consoleLog);
+      this.playerSub.unsubscribe();
+    }
+    this.router.navigateByUrl('/login', { replaceUrl: true });
     console.log('%c ALERT: Logged Out', environment.consoleLog);
   }
 

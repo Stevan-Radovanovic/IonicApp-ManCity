@@ -32,7 +32,7 @@
   </ion-item>
   <ion-list *ngIf="hasPlayers">
     <ion-item-sliding *ngFor="let player of players">
-      <ion-item [routerLink]="['/home/players',player._id]">
+      <ion-item (click)="onNavigate(player)">
         <ion-avatar slot="start">
           <ion-img [src]="player.imageUrl"> </ion-img>
         </ion-avatar>

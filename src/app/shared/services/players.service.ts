@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Player } from '../models/player.model';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { tap, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
