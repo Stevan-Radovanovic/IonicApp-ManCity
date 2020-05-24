@@ -26,6 +26,19 @@ export class CoachesService {
       );
   }
 
+  getCoachesByEmail() {
+    return this.http
+      .get<{ documents: Coach[] }>('http://localhost:3000/coaches/email', {
+        params: { email: localStorage.getItem('email') },
+      })
+      .pipe(
+        tap((coaches) => {
+          console.log(coaches);
+          this.coachSubject.next(coaches.documents);
+        })
+      );
+  }
+
   getCoach(id: string) {
     console.log('%c ALERT: Coach Fetched', environment.consoleLog);
     let selectedCoach: Coach;
@@ -39,7 +52,11 @@ export class CoachesService {
 
   postCoach(coach: Coach) {
     return this.http
-      .post<{ signal: boolean }>('http://localhost:3000/coaches', coach)
+      .post<{ signal: boolean }>('http://localhost:3000/coaches', coach, {
+        params: {
+          email: localStorage.getItem('email'),
+        },
+      })
       .pipe(
         tap((result) => {
           if (result.signal === true) {

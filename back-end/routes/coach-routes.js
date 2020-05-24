@@ -6,5 +6,6 @@ const router = express.Router();
 router.get('/', CoachController.GetAllCoaches);
 router.post('/', CoachController.PostCoach);
 router.delete('/deleteOne', CoachController.DeleteCoach);
+router.get('/email', CoachController.GetCoachesByEmail);
 
 module.exports = router;

@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { CoachModalPage } from './coach-modal/coach-modal.page';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-coaches',
@@ -16,14 +17,14 @@ export class CoachesPage implements OnInit {
   coaches: Coach[] = [];
   fullListCoaches: Coach[] = [];
   searchBarInput: string;
-  sub: Subscription;
   hasCoaches = false;
   isLoading = true;
 
   constructor(
     private serv: CoachesService,
     private modalController: ModalController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {}
@@ -33,10 +34,10 @@ export class CoachesPage implements OnInit {
     this.isLoading = true;
     loader.present();
     this.serv
-      .getCoaches()
+      .getCoachesByEmail()
       .pipe(
         tap(() => {
-          this.sub = this.serv.coachSubject.subscribe((response) => {
+          this.auth.coachSub = this.serv.coachSubject.subscribe((response) => {
             console.log('%c ALERT: Subject Triggered', environment.consoleLog);
             if (response.length > 0) {
               this.hasCoaches = true;
@@ -61,8 +62,8 @@ export class CoachesPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.auth.coachSub) {
+      this.auth.coachSub.unsubscribe();
     }
   }
 
@@ -94,7 +95,7 @@ export class CoachesPage implements OnInit {
     });
     modal.present();
     modal.onDidDismiss().then(() => {
-      this.sub.unsubscribe();
+      this.auth.coachSub.unsubscribe();
       this.getCoaches();
     });
   }
